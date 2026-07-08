@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classwork 6.2</title>
+  
+  <link href="./bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    
+    /* Layout Section Structure */
+    .content-section {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #dee2e6;
+      padding-bottom: 10px;
+    }
+
+    /* ================= Section 1: Flip Cards CSS ================= */
+    .product-card {
+      background-color: transparent;
+      width: 100%;
+      height: 420px; 
+      perspective: 1000px; 
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: left;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    .product-card:has(.card-img-container:hover) .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-img-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      cursor: pointer;
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body-custom {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-footer-custom {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid #dee2e6;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      padding: 25px;
+      background-color: #f1f3f5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-back h5 {
+      border-bottom: 2px solid #dee2e6;
+      padding-bottom: 10px;
+    }
+
+    /* ================= Section 2: Project Filter CSS ================= */
+    .hidden-radio {
+      display: none !important;
+    }
+
+    .filters {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .filters label {
+      display: inline-block;
+      padding: 10px 25px;
+      margin: 5px;
+      border: 1px solid #0d6efd;
+      color: #0d6efd;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .filters label:hover {
+      background: #0d6efd;
+      color: white;
+    }
+
+    #all:checked ~ .filters label[for="all"],
+    #web:checked ~ .filters label[for="web"],
+    #mobile:checked ~ .filters label[for="mobile"] {
+      background: #0d6efd;
+      color: white;
+    }
+
+    .item {
+      display: none;
+    }
+
+    #all:checked ~ .filter-results .all {
+      display: block;
+    }
+
+    #web:checked ~ .filter-results .web {
+      display: block;
+    }
+
+    #mobile:checked ~ .filter-results .mobile {
+      display: block;
+    }
+
+    .filter-card {
+      transition: .3s;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .filter-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    }
+
+    /* ================= Section 3: Container Toasts CSS ================= */
+    .hidden-check { 
+      display: none !important; 
+    }
+    
+    #t1:checked ~ .toast-box-wrapper .toast1,
+    #t2:checked ~ .toast-box-wrapper .toast2,
+    #t3:checked ~ .toast-box-wrapper .toast3 { 
+      display: none !important; 
+    }
+
+    .toast-box-wrapper {
+      position: relative;
+      background: #e9ecef;
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px dashed #ced4da;
+      min-height: 250px;
+    }
+
+    .toast-box-wrapper .toast-container { 
+      position: absolute; 
+      z-index: 10; 
+    }
+    
+    .toast-box-wrapper .t-top-center { top: 20px; left: 50%; transform: translateX(-50%); }
+    .toast-box-wrapper .t-bottom-left { bottom: 20px; left: 20px; }
+    .toast-box-wrapper .t-bottom-right { bottom: 20px; right: 20px; }
+  </style>
+</head>
+
+
+<body class="p-4">
+
+<div class="container">
+
+  <div class="content-section">
+    <h2 class="section-title text-dark">01. Product Catalog (Flip Cards)</h2>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="product-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-img-container">
+                <img src="./headset.png" class="card-img-top" alt="Sleek Headphones">
+              </div>
+              <div class="card-body-custom">
+                <h5 class="fw-bold mb-1">Sleek Headphones</h5>
+                <p class="text-muted small mb-0">Wireless, noise-cancelling</p>
+                <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                  <span class="fw-bold">LKR.6900</span>
+                  <div>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</button>
+                    <button class="btn btn-primary btn-sm">Buy</button>
+                  </div>
+                </div>
+                <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated 2 days ago</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <h5 class="fw-bold text-primary">Product Details</h5>
+              <p class="mt-2 text-muted">Experience premium sound quality with these Sleek Headphones. Perfect for long travel or intensive gym sessions.</p>
+              <ul class="small">
+                <li>40 hours battery life</li>
+                <li>Active Noise Cancellation</li>
+                <li>Bluetooth 5.2 support</li>
+              </ul>
+              <p class="text-muted small mt-auto mb-0">Updated 2 days ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="product-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-img-container">
+                <img src="./watch.png" class="card-img-top" alt="Smart Watch">
+              </div>
+              <div class="card-body-custom">
+                <h5 class="fw-bold mb-1">Smart Watch</h5>
+                <p class="text-muted small mb-0">Fitness tracking, heart rate monitor</p>
+                <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                  <span class="fw-bold">LKR.19900</span>
+                  <div>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal2">Quick View</button>
+                    <button class="btn btn-primary btn-sm">Buy</button>
+                  </div>
+                </div>
+                <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated 1 day ago</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <h5 class="fw-bold text-primary">Product Details</h5>
+              <p class="mt-2 text-muted">Stay on top of your health goals with this modern Smart Watch. It tracks everything accurately.</p>
+              <ul class="small">
+                <li>Heart Rate & SpO2 Monitor</li>
+                <li>Waterproof up to 50m</li>
+                <li>7-Day Battery Life</li>
+              </ul>
+              <p class="text-muted small mt-auto mb-0">Updated 1 day ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="product-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-img-container">
+                <img src="./jbl.png" class="card-img-top" alt="Wireless Speaker">
+              </div>
+              <div class="card-body-custom">
+                <h5 class="fw-bold mb-1">Wireless Speaker</h5>
+                <p class="text-muted small mb-0">Portable, waterproof, high bass</p>
+                <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                  <span class="fw-bold">LKR.10000</span>
+                  <div>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal3">Quick View</button>
+                    <button class="btn btn-primary btn-sm">Buy</button>
+                  </div>
+                </div>
+                <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated today</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <h5 class="fw-bold text-primary">Product Details</h5>
+              <p class="mt-2 text-muted">Bring the party anywhere with this High-Bass Wireless Speaker. Small size but studio-quality audio.</p>
+              <ul class="small">
+                <li>360° Surround Sound</li>
+                <li>IPX7 Waterproof rating</li>
+                <li>Dual pairing mode</li>
+              </ul>
+              <p class="text-muted small mt-auto mb-0">Updated today</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <input type="radio" name="filter" id="all" class="hidden-radio" checked>
+    <input type="radio" name="filter" id="web" class="hidden-radio">
+    <input type="radio" name="filter" id="mobile" class="hidden-radio">
+
+    <h2 class="section-title text-dark">02. Responsive Cards with CSS Filter</h2>
+
+    <div class="filters">
+        <label for="all">All</label>
+        <label for="web">Web</label>
+        <label for="mobile">Mobile</label>
+    </div>
+
+    <div class="row filter-results">
+        <div class="col-md-4 mb-4 item all web">
+            <div class="card filter-card p-5">Web Project A</div>
+        </div>
+        <div class="col-md-4 mb-4 item all mobile">
+            <div class="card filter-card p-5">Mobile App B</div>
+        </div>
+        <div class="col-md-4 mb-4 item all web">
+            <div class="card filter-card p-5">Web Project C</div>
+        </div>
+        <div class="col-md-4 mb-4 item all web">
+            <div class="card filter-card p-5">Web Project D</div>
+        </div>
+        <div class="col-md-4 mb-4 item all mobile">
+            <div class="card filter-card p-5">Mobile App E</div>
+        </div>
+        <div class="col-md-4 mb-4 item all mobile">
+            <div class="card filter-card p-5">Mobile App F</div>
+        </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2 class="section-title text-dark">03. Multiple Bootstrap Toasts without JS</h2>
+    
+    <input type="checkbox" id="t1" class="hidden-check">
+    <input type="checkbox" id="t2" class="hidden-check">
+    <input type="checkbox" id="t3" class="hidden-check">
+
+    <div class="toast-box-wrapper">
+        <div class="toast-container t-top-center toast1">
+            <div class="toast show bg-info text-white border-0 shadow-sm">
+                <div class="d-flex">
+                    <div class="toast-body">This is an info alert!</div>
+                    <label for="t1" class="btn-close btn-close-white me-2 m-auto" style="cursor: pointer;"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container t-bottom-left toast2">
+            <div class="toast show bg-warning text-dark border-0 shadow-sm">
+                <div class="d-flex">
+                    <div class="toast-body">This is a warning alert!</div>
+                    <label for="t2" class="btn-close me-2 m-auto" style="cursor: pointer;"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container t-bottom-right toast3">
+            <div class="toast show bg-success text-white border-0 shadow-sm">
+                <div class="d-flex">
+                    <div class="toast-body">This is a success alert!</div>
+                    <label for="t3" class="btn-close btn-close-white me-2 m-auto" style="cursor: pointer;"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="content-section text-center">
+    <h2 class="section-title text-dark text-start">04. Modal - Nested Confirm</h2>
+    <h4 class="mt-4 mb-4">Main modal that opens a confirmation modal</h4>
+
+    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#mainModal">
+        Open Modal
+    </button>
+  </div>
+
+  <div class="content-section">
+    <h2 class="section-title text-dark">05. Accordion - Icons and Transitions</h2>
+    <h4 class="mb-4">Accordion with icon indicator</h4>
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    What is Bootstrap?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Bootstrap is a responsive CSS framework. It helps developers create beautiful and mobile-friendly websites quickly.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How to use Bootstrap Components?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can use Bootstrap components by copying the HTML code from the Bootstrap documentation and adding the Bootstrap CSS and JavaScript files to your project.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Is Bootstrap Responsive?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Yes. Bootstrap is fully responsive. It automatically adjusts your website layout for mobile phones, tablets, laptops, and desktops.
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="quickViewModal1" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Sleek Headphones Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./headset.png" class="img-fluid rounded mb-3" alt="Headphones">
+        <p class="text-muted">This is the quick preview modal popup for the Sleek Headphones.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="quickViewModal2" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Smart Watch Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./watch.png" class="img-fluid rounded mb-3" alt="Smart Watch">
+        <p class="text-muted">This is the quick preview modal popup for the Smart Watch.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="quickViewModal3" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Wireless Speaker Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./jbl.png" class="img-fluid rounded mb-3" alt="Wireless Speaker">
+        <p class="text-muted">This is the quick preview modal popup for the Wireless Speaker.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="mainModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-start">
+                <p>Perform an action that needs confirmation.</p>
+                <button type="button" class="btn btn-danger" data-bs-target="#confirmModal" data-bs-toggle="modal">
+                    Delete Item
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-start">
+                Are you sure you want to delete this item?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-target="#mainModal" data-bs-toggle="modal">Back</button>
+                <button class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./bootstrap-5.3.8/js/bootstrap.min.js"></script>
+</body>
+</html>
