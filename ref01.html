@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ref 01</title>
+  <!-- Bootstrap 5 CSS link -->
+  <link href="./bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding: 50px 0;
+    }
+    
+    /* Main Card Wrapper */
+    .product-card {
+      background-color: transparent;
+      width: 100%;
+      height: 420px; /* Card thinuyara alavu */
+      perspective: 1000px; /* 3D effect-rkaga */
+    }
+
+    /* Inner Container that Flips */
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: left;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    /* Image mela cursor pogum pothu mattum FULL CARD-um flip aagum */
+    .product-card:has(.card-img-container:hover) .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Front Side Styling */
+    .card-img-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      cursor: pointer;
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body-custom {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-footer-custom {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid #dee2e6;
+    }
+
+    /* Back Side Styling */
+    .card-back {
+      transform: rotateY(180deg);
+      padding: 25px;
+      background-color: #f1f3f5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-back h5 {
+      border-bottom: 2px solid #dee2e6;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="mb-1 fw-bold">Cards — Flip + Modal Preview</h2>
+  <p class="text-muted mb-4">Flip cards with quick-view modal and price badge.</p>
+  
+  <div class="row g-4">
+    <!-- Card 1: Sleek Headphones -->
+    <div class="col-md-4">
+      <div class="product-card">
+        <div class="card-inner">
+          
+          <!-- Front Side -->
+          <div class="card-front">
+            <div class="card-img-container">
+              <img src="./headset.png" class="card-img-top" alt="Sleek Headphones">
+            </div>
+            <div class="card-body-custom">
+              <h5 class="fw-bold mb-1">Sleek Headphones</h5>
+              <p class="text-muted small mb-0">Wireless, noise-cancelling</p>
+              
+              <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                <span class="fw-bold">LKR.6900</span>
+                <div>
+                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</button>
+                  <button class="btn btn-primary btn-sm">Buy</button>
+                </div>
+              </div>
+              <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated 2 days ago</p>
+            </div>
+          </div>
+          
+          <!-- Back Side -->
+          <div class="card-back">
+            <h5 class="fw-bold text-primary">Product Details</h5>
+            <p class="mt-2 text-muted">Experience premium sound quality with these Sleek Headphones. Perfect for long travel or intensive gym sessions.</p>
+            <ul class="small">
+              <li>40 hours battery life</li>
+              <li>Active Noise Cancellation</li>
+              <li>Bluetooth 5.2 support</li>
+            </ul>
+            <p class="text-muted small mt-auto mb-0">Updated 2 days ago</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Smart Watch -->
+    <div class="col-md-4">
+      <div class="product-card">
+        <div class="card-inner">
+          
+          <!-- Front Side -->
+          <div class="card-front">
+            <div class="card-img-container">
+              <img src="./watch.png" class="card-img-top" alt="Smart Watch">
+            </div>
+            <div class="card-body-custom">
+              <h5 class="fw-bold mb-1">Smart Watch</h5>
+              <p class="text-muted small mb-0">Fitness tracking, heart rate monitor</p>
+              
+              <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                <span class="fw-bold">LKR.19900</span>
+                <div>
+                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal2">Quick View</button>
+                  <button class="btn btn-primary btn-sm">Buy</button>
+                </div>
+              </div>
+              <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated 1 day ago</p>
+            </div>
+          </div>
+          
+          <!-- Back Side -->
+          <div class="card-back">
+            <h5 class="fw-bold text-primary">Product Details</h5>
+            <p class="mt-2 text-muted">Stay on top of your health goals with this modern Smart Watch. It tracks everything accurately.</p>
+            <ul class="small">
+              <li>Heart Rate & SpO2 Monitor</li>
+              <li>Waterproof up to 50m</li>
+              <li>7-Day Battery Life</li>
+            </ul>
+            <p class="text-muted small mt-auto mb-0">Updated 1 day ago</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Wireless Speaker -->
+    <div class="col-md-4">
+      <div class="product-card">
+        <div class="card-inner">
+          
+          <!-- Front Side -->
+          <div class="card-front">
+            <div class="card-img-container">
+              <img src="./jbl.png" class="card-img-top" alt="Wireless Speaker">
+            </div>
+            <div class="card-body-custom">
+              <h5 class="fw-bold mb-1">Wireless Speaker</h5>
+              <p class="text-muted small mb-0">Portable, waterproof, high bass</p>
+              
+              <div class="card-footer-custom d-flex justify-content-between align-items-center">
+                <span class="fw-bold">LKR.10000</span>
+                <div>
+                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#quickViewModal3">Quick View</button>
+                  <button class="btn btn-primary btn-sm">Buy</button>
+                </div>
+              </div>
+              <p class="text-muted small mt-2 mb-0" style="font-size: 0.75rem;">Updated today</p>
+            </div>
+          </div>
+          
+          <!-- Back Side -->
+          <div class="card-back">
+            <h5 class="fw-bold text-primary">Product Details</h5>
+            <p class="mt-2 text-muted">Bring the party anywhere with this High-Bass Wireless Speaker. Small size but studio-quality audio.</p>
+            <ul class="small">
+              <li>360° Surround Sound</li>
+              <li>IPX7 Waterproof rating</li>
+              <li>Dual pairing mode</li>
+            </ul>
+            <p class="text-muted small mt-auto mb-0">Updated today</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODALS SECTION ================= -->
+
+<!-- Modal 1: Sleek Headphones -->
+<div class="modal fade" id="quickViewModal1" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Sleek Headphones Preview</h5>
+        <!-- Sariyaana close button attribute -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./headset.png" class="img-fluid rounded mb-3" alt="Headphones">
+        <p class="text-muted">This is the quick preview modal popup for the Sleek Headphones.</p>
+      </div>
+      <div class="modal-footer">
+        <!-- Keezhe ulla working close button -->
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Smart Watch -->
+<div class="modal fade" id="quickViewModal2" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Smart Watch Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./watch.png" class="img-fluid rounded mb-3" alt="Smart Watch">
+        <p class="text-muted">This is the quick preview modal popup for the Smart Watch.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Wireless Speaker -->
+<div class="modal fade" id="quickViewModal3" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Wireless Speaker Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="./jbl.png" class="img-fluid rounded mb-3" alt="Wireless Speaker">
+        <p class="text-muted">This is the quick preview modal popup for the Wireless Speaker.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JavaScript Bundle -->
+<script src="./bootstrap-5.3.8/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

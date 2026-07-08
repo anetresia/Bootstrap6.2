@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ref 02</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f8f9fa;
+        }
+
+        h2{
+            text-align:center;
+            margin:30px 0;
+            font-weight:bold;
+        }
+
+        /* Radio Buttons Hide */
+        input[type="radio"]{
+            display:none;
+        }
+
+        /* Filter Buttons */
+        .filters{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .filters label{
+            display:inline-block;
+            padding:10px 25px;
+            margin:5px;
+            border:1px solid #0d6efd;
+            color:#0d6efd;
+            border-radius:5px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .filters label:hover{
+            background:#0d6efd;
+            color:white;
+        }
+
+        #all:checked ~ .filters label[for="all"],
+        #web:checked ~ .filters label[for="web"],
+        #mobile:checked ~ .filters label[for="mobile"]{
+            background:#0d6efd;
+            color:white;
+        }
+
+        .item{
+            display:none;
+        }
+
+        #all:checked ~ .container .all{
+            display:block;
+        }
+
+        #web:checked ~ .container .web{
+            display:block;
+        }
+
+        #mobile:checked ~ .container .mobile{
+            display:block;
+        }
+
+        .card{
+            transition:.3s;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .card:hover{
+            transform:scale(1.05);
+            box-shadow:0 8px 20px rgba(0,0,0,.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Radio Buttons -->
+    <input type="radio" name="filter" id="all" checked>
+    <input type="radio" name="filter" id="web">
+    <input type="radio" name="filter" id="mobile">
+
+    <!-- Heading -->
+    <h2>Responsive Cards with CSS Filter</h2>
+
+    <!-- Filter Buttons -->
+    <div class="filters">
+        <label for="all">All</label>
+        <label for="web">Web</label>
+        <label for="mobile">Mobile</label>
+    </div>
+
+    <!-- Cards -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-4 mb-4 item all web">
+                <div class="card p-5">
+                    Web Project A
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 item all mobile">
+                <div class="card p-5">
+                    Mobile App B
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 item all web">
+                <div class="card p-5">
+                    Web Project C
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 item all web">
+                <div class="card p-5">
+                    Web Project D
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 item all mobile">
+                <div class="card p-5">
+                    Mobile App E
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 item all mobile">
+                <div class="card p-5">
+                    Mobile App F
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
